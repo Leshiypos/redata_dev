@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/mobile-media-queries.css" id="mobile-media-queries" disabled="disabled">
+    <link rel="stylesheet" href="/css/desktop-media-queries.css" id="desktop-media-queries" disabled="disabled">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <meta charset="utf-8">
+    <meta name="description" content="My description">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="/js/pre-code-fix.js" defer></script>
+    <script src="/js/media-queries.js" defer></script>
+    <script src="/js/include.js" defer></script>
+    <title>ReData</title>
+</head>
+
+<body>    
+    <header>
+        <include src="/components/nav.html"></include>
+    </header>
+
+    <main>
+        <include src="./components/docs-navbar.html"></include>
+        <article>
+            <h2 style="margin: 0;">Приведение различных подтипов xml-документов к обобщенной форме</h2>
+            <p>
+                В тестовом проекте <span class="code-inline-snippet">credit-forms-unification-sample</span> показан пример того, как можно выполнить
+                разбор различных по структуре, но близких по содержанию XML.
+            </p>
+            <p>Представим, что у нас есть заявки на получение кредита от трёх различных банков.</p>
+
+            <div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 5px; justify-content: center; width: 100%;">
+
+                <div>
+                    <h5>DeutscheBank:</h5>
+                    <div style="text-align: center;">
+                        <div class="code">
+                    <pre>
+                <code>
+                    <span class="tag-name">&lt;?xml version="1.0" encoding="UTF-8"?</span><span class="tag-name">&gt;</span>
+                    <span class="tag-name">&lt;LoanApplication&gt;</span>
+                    <span class="tag-name">  &lt;ApplicantInfo&gt;</span>
+                    <span class="tag-name">    &lt;FullName&gt;</span>
+                    <span class="tag-name">      &lt;FirstName&gt;</span><span class="tag-value">Sofia</span><span class="tag-name">&lt;/FirstName&gt;</span>
+                    <span class="tag-name">      &lt;LastName&gt;</span><span class="tag-value">Lorenzo</span><span class="tag-name">&lt;/LastName&gt;</span>
+                    <span class="tag-name">    &lt;/FullName&gt;</span>
+                    <span class="tag-name">    &lt;DateOfBirth&gt;</span><span class="tag-value">1992-03-24</span><span class="tag-name">&lt;/DateOfBirth&gt;</span>
+                    <span class="tag-name">    &lt;TaxIdentificationNumber&gt;</span><span class="tag-value">545-56-7190</span><span class="tag-name">&lt;/TaxIdentificationNumber&gt;</span>
+                    <span class="tag-name">    &lt;ContactInfo&gt;</span>
+                    <span class="tag-name">      &lt;EmailAddress&gt;</span><span class="tag-value">sofia.l@example.com</span><span class="tag-name">&lt;/EmailAddress&gt;</span>
+                    <span class="tag-name">      &lt;PhoneNumber&gt;</span><span class="tag-value">+39 02 98765432</span><span class="tag-name">&lt;/PhoneNumber&gt;</span>
+                    <span class="tag-name">      &lt;MailingAddress&gt;</span>
+                    <span class="tag-name">        &lt;Street&gt;</span><span class="tag-value">28 Via Roma</span><span class="tag-name">&lt;/Street&gt;</span>
+                    <span class="tag-name">        &lt;City&gt;</span><span class="tag-value">Milan</span><span class="tag-name">&lt;/City&gt;</span>
+                    <span class="tag-name">        &lt;ZipCode&gt;</span><span class="tag-value">20121</span><span class="tag-name">&lt;/ZipCode&gt;</span>
+                    <span class="tag-name">        &lt;Country&gt;</span><span class="tag-value">Italy</span><span class="tag-name">&lt;/Country&gt;</span>
+                    <span class="tag-name">      &lt;/MailingAddress&gt;</span>
+                    <span class="tag-name">    &lt;/ContactInfo&gt;</span>
+                    <span class="tag-name">    &lt;MaritalStatus&gt;</span><span class="tag-value">Single</span><span class="tag-name">&lt;/MaritalStatus&gt;</span>
+                    <span class="tag-name">    &lt;Dependents&gt;</span><span class="tag-value">0</span><span class="tag-name">&lt;/Dependents&gt;</span>
+                    <span class="tag-name">    &lt;Nationality&gt;</span><span class="tag-value">Italy</span><span class="tag-name">&lt;/Nationality&gt;</span>
+                    <span class="tag-name">  &lt;/ApplicantInfo&gt;</span>
+                    <span class="tag-name">  &lt;EmploymentInfo&gt;</span>
+                    <span class="tag-name">    &lt;EmploymentStatus&gt;</span><span class="tag-value">Employed</span><span class="tag-name">&lt;/EmploymentStatus&gt;</span>
+                    <span class="tag-name">    &lt;Employer&gt;</span>
+                    <span class="tag-name">      &lt;Name&gt;</span><span class="tag-value">Milan General Hospital</span><span class="tag-name">&lt;/Name&gt;</span>
+                    <span class="tag-name">      &lt;Location&gt;</span>
+                    <span class="tag-name">        &lt;Street&gt;</span><span class="tag-value">10 Corso Vittorio Emanuele II</span><span class="tag-name">&lt;/Street&gt;</span>
+                    <span class="tag-name">        &lt;City&gt;</span><span class="tag-value">Milan</span><span class="tag-name">&lt;/City&gt;</span>
+                    <span class="tag-name">        &lt;ZipCode&gt;</span><span class="tag-value">20122</span><span class="tag-name">&lt;/ZipCode&gt;</span>
+                    <span class="tag-name">        &lt;Country&gt;</span><span class="tag-value">Italy</span><span class="tag-name">&lt;/Country&gt;</span>
+                    <span class="tag-name">      &lt;/Location&gt;</span>
+                    <span class="tag-name">    &lt;/Employer&gt;</span>
+                    <span class="tag-name">    &lt;JobDetails&gt;</span>
+                    <span class="tag-name">      &lt;JobTitle&gt;</span><span class="tag-value">Registered Nurse</span><span class="tag-name">&lt;/JobTitle&gt;</span>
+                    <span class="tag-name">      &lt;JobDuration&gt;</span><span class="tag-value">7 years</span><span class="tag-name">&lt;/JobDuration&gt;</span>
+                    <span class="tag-name">    &lt;/JobDetails&gt;</span>
+                    <span class="tag-name">  &lt;/EmploymentInfo&gt;</span>
+                    <span class="tag-name">  &lt;FinancialInfo&gt;</span>
+                    <span class="tag-name">    &lt;Salary&gt;</span><span class="tag-value">50000.75</span><span class="tag-name">&lt;/Salary&gt;</span>
+                    <span class="tag-name">    &lt;CreditRating&gt;</span><span class="tag-value">710</span><span class="tag-name">&lt;/CreditRating&gt;</span>
+                    <span class="tag-name">    &lt;MonthlyExpenses&gt;</span><span class="tag-value">2700.50</span><span class="tag-name">&lt;/MonthlyExpenses&gt;</span>
+                    <span class="tag-name">    &lt;LoanAmount&gt;</span><span class="tag-value">42000.00</span><span class="tag-name">&lt;/LoanAmount&gt;</span>
+                    <span class="tag-name">    &lt;LoanPurpose&gt;</span><span class="tag-value">Further Education</span><span class="tag-name">&lt;/LoanPurpose&gt;</span>
+                    <span class="tag-name">    &lt;ApplicationDate&gt;</span><span class="tag-value">2024-03-25</span><span class="tag-name">&lt;/ApplicationDate&gt;</span>
+                    <span class="tag-name">    &lt;LoanOfficerName&gt;</span><span class="tag-value">Luca Rossi</span><span class="tag-name">&lt;/LoanOfficerName&gt;</span>
+                    <span class="tag-name">&lt;/FinancialInfo&gt;</span>
+                </code>
+                </pre>
+                </div>
+                </div>
+            </div>
+
+
+            <div>
+                <h5>Barclays:</h5>
+                <div style="text-align: center;">
+                    <div class="code">
+                <pre>
+                <code>
+                    <span class="tag-name">&lt;?xml version="1.0" encoding="UTF-8"?</span><span class="tag-name">&gt;</span>
+                    <span class="tag-name">&lt;LoanApplication&gt;</span>
+                    <span class="tag-name">  &lt;docDate&gt;</span><span class="tag-value">2024-03-25</span><span class="tag-name">&lt;/docDate&gt;</span>
+                    <span class="tag-name">  &lt;Applicant&gt;</span>
+                    <span class="tag-name">    &lt;Name&gt;</span>
+                    <span class="tag-name">      &lt;First&gt;</span><span class="tag-value">Lisa</span><span class="tag-name">&lt;/First&gt;</span>
+                    <span class="tag-name">      &lt;Last&gt;</span><span class="tag-value">Martin</span><span class="tag-name">&lt;/Last&gt;</span>
+                    <span class="tag-name">    &lt;/Name&gt;</span>
+                    <span class="tag-name">    &lt;DateOfBirth&gt;</span><span class="tag-value">1987-12-12</span><span class="tag-name">&lt;/DateOfBirth&gt;</span>
+                    <span class="tag-name">    &lt;TaxID&gt;</span><span class="tag-value">456-78-9012</span><span class="tag-name">&lt;/TaxID&gt;</span>
+                    <span class="tag-name">    &lt;Location&gt;</span>
+                    <span class="tag-name">      &lt;Street&gt;</span><span class="tag-value">12 Binnenhof</span><span class="tag-name">&lt;/Street&gt;</span>
+                    <span class="tag-name">      &lt;City&gt;</span><span class="tag-value">Amsterdam</span><span class="tag-name">&lt;/City&gt;</span>
+                    <span class="tag-name">      &lt;ZipCode&gt;</span><span class="tag-value">1011 AB</span><span class="tag-name">&lt;/ZipCode&gt;</span>
+                    <span class="tag-name">      &lt;Country&gt;</span><span class="tag-value">Netherlands</span><span class="tag-name">&lt;/Country&gt;</span>
+                    <span class="tag-name">    &lt;/Location&gt;</span>
+                    <span class="tag-name">    &lt;ContactInfo&gt;</span>
+                    <span class="tag-name">      &lt;Email&gt;</span><span class="tag-value">lisa.m@example.com</span><span class="tag-name">&lt;/Email&gt;</span>
+                    <span class="tag-name">      &lt;Phone&gt;</span><span class="tag-value">+31 20 9876543</span><span class="tag-name">&lt;/Phone&gt;</span>
+                    <span class="tag-name">    &lt;/ContactInfo&gt;</span>
+                    <span class="tag-name">    &lt;MaritalStatus&gt;</span><span class="tag-value">Single</span><span class="tag-name">&lt;/MaritalStatus&gt;</span>
+                    <span class="tag-name">    &lt;Dependents&gt;</span><span class="tag-value">0</span><span class="tag-name">&lt;/Dependents&gt;</span>
+                    <span class="tag-name">    &lt;Nationality&gt;</span><span class="tag-value">Netherlands</span><span class="tag-name">&lt;/Nationality&gt;</span>
+                    <span class="tag-name">    &lt;PreviousLocation&gt;</span>
+                    <span class="tag-name">      &lt;Street&gt;</span><span class="tag-value">28 Piazza San Marco</span><span class="tag-name">&lt;/Street&gt;</span>
+                    <span class="tag-name">      &lt;City&gt;</span><span class="tag-value">Venice</span><span class="tag-name">&lt;/City&gt;</span>
+                    <span class="tag-name">      &lt;ZipCode&gt;</span><span class="tag-value">30124</span><span class="tag-name">&lt;/ZipCode&gt;</span>
+                    <span class="tag-name">      &lt;Country&gt;</span><span class="tag-value">Italy</span><span class="tag-name">&lt;/Country&gt;</span>
+                    <span class="tag-name">    &lt;/PreviousLocation&gt;</span>
+                    <span class="tag-name">    &lt;ResidenceStatus&gt;</span><span class="tag-value">Own</span><span class="tag-name">&lt;/ResidenceStatus&gt;</span>
+                    <span class="tag-name">    &lt;ResidenceDuration&gt;</span><span class="tag-value">6</span><span class="tag-name">&lt;/ResidenceDuration&gt;</span>
+                    <span class="tag-name">  &lt;/Applicant&gt;</span>
+                    <span class="tag-name">  &lt;Employment&gt;</span>
+                    <span class="tag-name">    &lt;Employer&gt;</span><span class="tag-value">EuroTech Solutions</span><span class="tag-name">&lt;/Employer&gt;</span>
+                    <span class="tag-name">    &lt;JobTitle&gt;</span><span class="tag-value">Marketing Specialist</span><span class="tag-name">&lt;/JobTitle&gt;</span>
+                    <span class="tag-name">    &lt;JobDuration&gt;</span><span class="tag-value">5 years</span><span class="tag-name">&lt;/JobDuration&gt;</span>
+                    <span class="tag-name">    &lt;WorkLocation&gt;</span>
+                    <span class="tag-name">      &lt;Street&gt;</span><span class="tag-value">7 Leopoldstraße</span><span class="tag-name">&lt;/Street&gt;</span>
+                    <span class="tag-name">      &lt;City&gt;</span><span class="tag-value">Munich</span><span class="tag-name">&lt;/City&gt;</span>
+                    <span class="tag-name">      &lt;ZipCode&gt;</span><span class="tag-value">80331</span><span class="tag-name">&lt;/ZipCode&gt;</span>
+                    <span class="tag-name">      &lt;Country&gt;</span><span class="tag-value">Germany</span><span class="tag-name">&lt;/Country&gt;</span>
+                    <span class="tag-name">    &lt;/WorkLocation&gt;</span>
+                    <span class="tag-name">  &lt;/Employment&gt;</span>
+                    <span class="tag-name">  &lt;FinancialInfo&gt;</span>
+                    <span class="tag-name">    &lt;Salary&gt;</span><span class="tag-value">71000</span><span class="tag-name">&lt;/Salary&gt;</span>
+                    <span class="tag-name">    &lt;CreditRating&gt;</span><span class="tag-value">750</span><span class="tag-name">&lt;/CreditRating&gt;</span>
+                    <span class="tag-name">    &lt;MonthlyExpenses&gt;</span><span class="tag-value">2600.50</span><span class="tag-name">&lt;/MonthlyExpenses&gt;</span>
+                    <span class="tag-name">    &lt;LoanAmount&gt;</span><span class="tag-value">48000.00</span><span class="tag-name">&lt;/LoanAmount&gt;</span>
+                    <span class="tag-name">    &lt;LoanPurpose&gt;</span><span class="tag-value">Education Expenses</span><span class="tag-name">&lt;/LoanPurpose&gt;</span>
+                    <span class="tag-name">  &lt;/FinancialInfo&gt;</span>
+                </code>
+                </pre>
+                </div>
+            </div>
+            </div>
+
+
+            <div>
+                <h5>RaboBank:</h5>
+                <div style="text-align: center;">
+                    <div class="code">
+                    <pre>
+                <code>
+                    <span class="tag-name">&lt;?xml version="1.0" encoding="UTF-8"?</span><span class="tag-name">&gt;</span>
+                    <span class="tag-name">&lt;LoanApplication&gt;</span>
+                    <span class="tag-name">  &lt;documentDate&gt;</span><span class="tag-value">2024-03-24</span><span class="tag-name">&lt;/documentDate&gt;</span>
+                    <span class="tag-name">  &lt;Applicant&gt;</span>
+                    <span class="tag-name">    &lt;FullName&gt;</span>
+                    <span class="tag-name">      &lt;FirstName&gt;</span><span class="tag-value">John</span><span class="tag-name">&lt;/FirstName&gt;</span>
+                    <span class="tag-name">      &lt;LastName&gt;</span><span class="tag-value">Smith</span><span class="tag-name">&lt;/LastName&gt;</span>
+                    <span class="tag-name">    &lt;/FullName&gt;</span>
+                    <span class="tag-name">    &lt;DateOfBirth&gt;</span><span class="tag-value">1980-03-25</span><span class="tag-name">&lt;/DateOfBirth&gt;</span>
+                    <span class="tag-name">    &lt;SocialSecurityNumber&gt;</span><span class="tag-value">987-65-4321</span><span class="tag-name">&lt;/SocialSecurityNumber&gt;</span>
+                    <span class="tag-name">    &lt;Address&gt;</span>
+                    <span class="tag-name">      &lt;Street&gt;</span><span class="tag-value">12 Park Lane</span><span class="tag-name">&lt;/Street&gt;</span>
+                    <span class="tag-name">      &lt;City&gt;</span><span class="tag-value">London</span><span class="tag-name">&lt;/City&gt;</span>
+                    <span class="tag-name">      &lt;PostalCode&gt;</span><span class="tag-value">W1A 1AA</span><span class="tag-name">&lt;/PostalCode&gt;</span>
+                    <span class="tag-name">      &lt;Country&gt;</span><span class="tag-value">United Kingdom</span><span class="tag-name">&lt;/Country&gt;</span>
+                    <span class="tag-name">    &lt;/Address&gt;</span>
+                    <span class="tag-name">    &lt;ContactInformation&gt;</span>
+                    <span class="tag-name">      &lt;Email&gt;</span><span class="tag-value">john.smith@example.com</span><span class="tag-name">&lt;/Email&gt;</span>
+                    <span class="tag-name">      &lt;Phone&gt;</span><span class="tag-value">+44 20 12345678</span><span class="tag-name">&lt;/Phone&gt;</span>
+                    <span class="tag-name">    &lt;/ContactInformation&gt;</span>
+                    <span class="tag-name">    &lt;MaritalStatus&gt;</span><span class="tag-value">TRUE</span><span class="tag-name">&lt;/MaritalStatus&gt;</span>
+                    <span class="tag-name">    &lt;Dependents&gt;</span><span class="tag-value">2</span><span class="tag-name">&lt;/Dependents&gt;</span>
+                    <span class="tag-name">    &lt;Citizenship&gt;</span><span class="tag-value">United Kingdom</span><span class="tag-name">&lt;/Citizenship&gt;</span>
+                    <span class="tag-name">    &lt;PreviousAddress&gt;</span>
+                    <span class="tag-name">      &lt;Street&gt;</span><span class="tag-value">34 Via Roma</span><span class="tag-name">&lt;/Street&gt;</span>
+                    <span class="tag-name">      &lt;City&gt;</span><span class="tag-value">Rome</span><span class="tag-name">&lt;/City&gt;</span>
+                    <span class="tag-name">      &lt;PostalCode&gt;</span><span class="tag-value">00100</span><span class="tag-name">&lt;/PostalCode&gt;</span>
+                    <span class="tag-name">      &lt;Country&gt;</span><span class="tag-value">Italy</span><span class="tag-name">&lt;/Country&gt;</span>
+                    <span class="tag-name">    &lt;/PreviousAddress&gt;</span>
+                    <span class="tag-name">    &lt;ResidentialStatus&gt;</span><span class="tag-value">Rent</span><span class="tag-name">&lt;/ResidentialStatus&gt;</span>
+                    <span class="tag-name">    &lt;YearsAtCurrentAddress&gt;</span><span class="tag-value">3</span><span class="tag-name">&lt;/YearsAtCurrentAddress&gt;</span>
+                    <span class="tag-name">  &lt;/Applicant&gt;</span>
+                    <span class="tag-name">  &lt;EmploymentInformation&gt;</span>
+                    <span class="tag-name">    &lt;Employer&gt;</span><span class="tag-value">Medical Clinic</span><span class="tag-name">&lt;/Employer&gt;</span>
+                    <span class="tag-name">    &lt;Occupation&gt;</span><span class="tag-value">Physician assistant</span><span class="tag-name">&lt;/Occupation&gt;</span>
+                    <span class="tag-name">    &lt;EmploymentDuration&gt;</span><span class="tag-value">5 years</span><span class="tag-name">&lt;/EmploymentDuration&gt;</span>
+                    <span class="tag-name">    &lt;WorkLocation&gt;</span>
+                    <span class="tag-name">      &lt;Street&gt;</span><span class="tag-value">7 Friedrichstraße</span><span class="tag-name">&lt;/Street&gt;</span>
+                    <span class="tag-name">      &lt;City&gt;</span><span class="tag-value">Berlin</span><span class="tag-name">&lt;/City&gt;</span>
+                    <span class="tag-name">      &lt;PostalCode&gt;</span><span class="tag-value">10117</span><span class="tag-name">&lt;/PostalCode&gt;</span>
+                    <span class="tag-name">      &lt;Country&gt;</span><span class="tag-value">Germany</span><span class="tag-name">&lt;/Country&gt;</span>
+                    <span class="tag-name">    &lt;/WorkLocation&gt;</span>
+                    <span class="tag-name">  &lt;/EmploymentInformation&gt;</span>
+                    <span class="tag-name">  &lt;FinancialInformation&gt;</span>
+                    <span class="tag-name">    &lt;Income&gt;</span><span class="tag-value">75000.50</span><span class="tag-name">&lt;/Income&gt;</span>
+                    <span class="tag-name">    &lt;CreditScore&gt;</span><span class="tag-value">800</span><span class="tag-name">&lt;/CreditScore&gt;</span>
+                    <span class="tag-name">    &lt;MonthlyExpenses&gt;</span><span class="tag-value">3000.75</span><span class="tag-name">&lt;/MonthlyExpenses&gt;</span>
+                    <span class="tag-name">    &lt;RequestedLoanAmount&gt;</span><span class="tag-value">50000.00</span><span class="tag-name">&lt;/RequestedLoanAmount&gt;</span>
+                    <span class="tag-name">    &lt;PurposeOfLoan&gt;</span><span class="tag-value">Home Purchase</span><span class="tag-name">&lt;/PurposeOfLoan&gt;</span>
+                    <span class="tag-name">  &lt;/FinancialInformation&gt;</span>
+                </code>
+                </pre>
+                </div>
+                </div>
+            </div>
+
+            </div>
+
+            <p>Как видно из примеров именование и вложенность тегов значительно различается. </p>
+
+            <p>Создадим проект <code>credit-forms-unification-sample</code> и откроем его. После чего будет активирован
+                ряд кнопок для добавления секций и подсекций.
+
+            </p>
+            <div class="img-container">
+                <img src="./images/credit-forms-unification-sample/create-project.png">
+            </div>
+
+
+            <p>Создадим секцию в проекте. Имя секции нужно для логической группировки данных. Для каждой отдельной секции
+                можно задавать отдельные правила разбора документов. В случае выгрузки в NoSQL имя секции используется
+                как имя коллекции.
+                В данном проекте мы хотим привести несколько различных документов к общему виду. Поэтому у нас будет
+                одна секция и одна подсекция.
+            </p>
+
+            <div class="img-container">
+                <img src="./images/credit-forms-unification-sample/add-section-to-project.png">
+            </div>
+
+            <p>Добавим подсекцию. В случае табличного представления данных имя подсекции должно совпадать с именем
+                таблицы в которой будут размещены данные нулевого уровня вложенности.
+            </p>
+
+            <div class="img-container">
+                <img src="./images/credit-forms-unification-sample/add-subsection-to-project.png">
+            </div>
+
+
+            <p>Переключимся на подсекцию и опишем структуру данных в промежуточном представлении. Подробнее про то как
+                описывать промежуточное представление описано в других разделах документации. Сохраним изменения.
+            </p>
+
+            <div class="img-container">
+                <img src="./images/credit-forms-unification-sample/describe-data-structure-for-subsection.png">
+            </div>
+
+
+            <p>Откроем первый XML документ из папки <span class="code-inline-snippet">data-samples/credit-forms-unification-sample</span> и нажмем
+                кнопку <span class="ui-item">Morphology</span> после чего в нижнем меню мы увидим список тегов для
+                которых необходимо установить соответствия.
+            </p>
+
+            <div class="img-container">
+                <img src="./images/credit-forms-unification-sample/open-first-xml-and-run-morphology-analize.png">
+            </div>
+
+            <p>Установим соответствия между каждым элементом из списка тегов и промежуточным представлением нажав <span
+                    class="ui-item">Add to Rules</span>. Если цепочка тегов не нужна отправим её в игнорируемые кнопкой <span
+                    class="ui-item">Add to Ignore</span>
+            </p>
+
+            <div class="img-container">
+                <img src="./images/credit-forms-unification-sample/match-the-tags-2.png">
+            </div>
+
+
+            <p>Повторим указанное действие для всех цепочек тегов:
+            </p>
+
+            <div class="img-container">
+                <img src="./images/credit-forms-unification-sample/match-the-tags-3.png">
+            </div>
+
+
+
+            <p>Теперь после нажатия на кнопку <span class="ui-item">Morphology</span> мы увидим наше промежуточное
+                представление заполненное данными.
+            </p>
+
+            <div class="img-container">
+                <img src="./images/credit-forms-unification-sample/run-morphology-after-tags-matching.png">
+            </div>
+
+            <p>Откроем новый XML файл, нажмем <span class="ui-item">Morphology</span>. Как видно из-за того, что
+                структура XML разная произошло сопоставление только небольшой части данных.
+            </p>
+
+            <div class="img-container">
+                <img src="./images/credit-forms-unification-sample/open-another-xml-and-click-to-morphology.png">
+            </div>
+
+            <p>Выполним сопоставление для всех оставшихся тегов.
+            </p>
+
+            <div class="img-container">
+                <img src="./images/credit-forms-unification-sample/match-the-tags-for-second-file-1.png">
+            </div>
+
+            <p>Откроем третий файл и повторим все действия для него.
+            </p>
+
+            <div class="img-container">
+                <img src="./images/credit-forms-unification-sample/match-the-tags-for-third-file.png">
+            </div>
+
+            <p>После чего его структура примет следующий вид:
+            </p>
+
+            <div class="img-container">
+                <img src="./images/credit-forms-unification-sample/third-all-tags-matched.png">
+            </div>
+
+
+            <p>
+                Однако теперь если мы попробуем выполнить парсинг нажав <span class="ui-item">Parse</span> то получим
+                некорректный реультат в котором будет отсутствовать часть данных:
+
+            </p>
+            <div class="img-container">
+                <img src="./images/credit-forms-unification-sample/missing-aliases.png">
+            </div>
+
+            <p>Как видно из примера отстутствуют данные отвечающие за секцию <code>applicant_finance</code>.
+                В самих XML эта секция имеет два варианта написания.
+
+            </p>
+
+
+            <div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 5px; justify-content: center; width: 100%;">
+
+                <div>
+                    <h5>DeutscheBank:</h5>
+                    <div style="text-align: center;">
+                        <div class="code">
+                    <pre>
+                <code>
+                    <span class="tag-name tag-name-active">  &lt;FinancialInfo&gt;</span>
+                    <span class="tag-name">    &lt;Salary&gt;</span><span class="tag-value">50000.75</span><span class="tag-name">&lt;/Salary&gt;</span>
+                    <span class="tag-name">    &lt;CreditRating&gt;</span><span class="tag-value">710</span><span class="tag-name">&lt;/CreditRating&gt;</span>
+                    <span class="tag-name">    &lt;MonthlyExpenses&gt;</span><span class="tag-value">2700.50</span><span class="tag-name">&lt;/MonthlyExpenses&gt;</span>
+                    <span class="tag-name">    &lt;LoanAmount&gt;</span><span class="tag-value">42000.00</span><span class="tag-name">&lt;/LoanAmount&gt;</span>
+                    <span class="tag-name">    &lt;LoanPurpose&gt;</span><span class="tag-value">Further Education</span><span class="tag-name">&lt;/LoanPurpose&gt;</span>
+                    <span class="tag-name">    &lt;ApplicationDate&gt;</span><span class="tag-value">2024-03-25</span><span class="tag-name">&lt;/ApplicationDate&gt;</span>
+                    <span class="tag-name">    &lt;LoanOfficerName&gt;</span><span class="tag-value">Luca Rossi</span><span class="tag-name">&lt;/LoanOfficerName&gt;</span>
+                    <span class="tag-name tag-name-active">&lt;/FinancialInfo&gt;</span>
+                </code>
+                </pre>
+                </div>
+                </div>
+            </div>
+
+
+            <div>
+                <h5>Barclays:</h5>
+                <div style="text-align: center;">
+                    <div class="code">
+                <pre>
+                <code>
+                    <span class="tag-name tag-name-active">  &lt;FinancialInfo&gt;</span>
+                    <span class="tag-name">    &lt;Salary&gt;</span><span class="tag-value">71000</span><span class="tag-name">&lt;/Salary&gt;</span>
+                    <span class="tag-name">    &lt;CreditRating&gt;</span><span class="tag-value">750</span><span class="tag-name">&lt;/CreditRating&gt;</span>
+                    <span class="tag-name">    &lt;MonthlyExpenses&gt;</span><span class="tag-value">2600.50</span><span class="tag-name">&lt;/MonthlyExpenses&gt;</span>
+                    <span class="tag-name">    &lt;LoanAmount&gt;</span><span class="tag-value">48000.00</span><span class="tag-name">&lt;/LoanAmount&gt;</span>
+                    <span class="tag-name">    &lt;LoanPurpose&gt;</span><span class="tag-value">Education Expenses</span><span class="tag-name">&lt;/LoanPurpose&gt;</span>
+                    <span class="tag-name tag-name-active">  &lt;/FinancialInfo&gt;</span>
+                </code>
+                </pre>
+                </div>
+            </div>
+            </div>
+
+
+            <div>
+                <h5>RaboBank:</h5>
+                <div style="text-align: center;">
+                    <div class="code">
+                    <pre>
+                <code>
+                    <span class="tag-name tag-name-active">  &lt;FinancialInformation&gt;</span>
+                    <span class="tag-name">    &lt;Income&gt;</span><span class="tag-value">75000.50</span><span class="tag-name">&lt;/Income&gt;</span>
+                    <span class="tag-name">    &lt;CreditScore&gt;</span><span class="tag-value">800</span><span class="tag-name">&lt;/CreditScore&gt;</span>
+                    <span class="tag-name">    &lt;MonthlyExpenses&gt;</span><span class="tag-value">3000.75</span><span class="tag-name">&lt;/MonthlyExpenses&gt;</span>
+                    <span class="tag-name">    &lt;RequestedLoanAmount&gt;</span><span class="tag-value">50000.00</span><span class="tag-name">&lt;/RequestedLoanAmount&gt;</span>
+                    <span class="tag-name">    &lt;PurposeOfLoan&gt;</span><span class="tag-value">Home Purchase</span><span class="tag-name">&lt;/PurposeOfLoan&gt;</span>
+                    <span class="tag-name tag-name-active">  &lt;/FinancialInformation&gt;</span>
+                </code>
+                </pre>
+                </div>
+                </div>
+            </div>
+      </div>
+
+
+            <!-- <div class="img-container">
+                <img src="./images/credit-forms-unification-sample/sections-aliases.png">
+            </div> -->
+
+            <p>
+                Переключимся на <span class="ui-item">Grow Rules</span> и укажем варианты её именования в реальных
+                файлах:
+
+            </p>
+            <div class="img-container">
+                <img src="./images/credit-forms-unification-sample/section-aliases-rules.png">
+            </div>
+
+            <p>
+                Теперь после нажатия кнопки <span class="ui-item">Parse</span> промежуточное представление примет
+                следующий вид:
+            </p>
+
+            <div class="img-container">
+                <img src="./images/credit-forms-unification-sample/parse-result.png">
+            </div>
+
+            <p>
+                JSON представление:
+            </p>
+            <div class="img-container">
+                <img src="./images/credit-forms-unification-sample/json-representation.png">
+            </div>
+            <p>
+                SQL представление:
+
+            </p>
+            <div class="img-container">
+                <img src="./images/credit-forms-unification-sample/sql-representation.png">
+            </div>
+
+            <p>
+                Обратите внимание, что пока указанные данные не пригодны для выгрузки в базу данных т.к. в них не
+                выполнено приведение типов и все значения тегов представлены как строки.
+            </p>
+
+            <p>Подробнее о том, <a href="./creating-patches-based-on-xml-documents.html">как как извлечь из XML произвольный набор полей и использовать его для обновления имеющейся базы данных</a></p>
+
+        </article>
+
+
+    </main>
+
+    <include src="/components/footer.html"></include>
+</body>
+
+</html>

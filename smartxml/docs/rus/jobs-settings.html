@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<head>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/mobile-media-queries.css" id="mobile-media-queries" disabled="disabled">
+  <link rel="stylesheet" href="/css/desktop-media-queries.css" id="desktop-media-queries" disabled="disabled">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <meta charset="utf-8">
+  <meta name="description" content="My description">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="/js/pre-code-fix.js" defer></script>
+  <script src="/js/media-queries.js" defer></script>
+  <script src="/js/include.js" defer></script>      
+  <title>ReData</title>
+</head>
+
+<body>
+    <header>
+      <include src="/components/nav.html"></include>
+    </header>
+    <main>
+
+      <include src="./components/docs-navbar.html"></include>
+
+      <article>
+        <h2>Jobs Settings</h2>
+
+        <h3>Настройка структуры таблиц</h3>
+        <p>SmartXML работает в однопоточном режиме. <code>Job</code> представлеят из себя набор правил согласно которым происходит
+          выборка XML файлов для обработки. Множественные <code>Job</code> нужны если вам требуется запустить более одного экземпляра
+          SmartXML и передать каждому из них отдельную порцию XML для обработки. В противном случае вам хватит одного
+          Job.
+        </p>
+        <p>Рекомендуемое имя таблицы с исходными файлами <span class="table-name">xml_files</span>.</p>
+        <p>Таблица <span class="table-name">xml_files</span> может содержать в себе произвольное количество столбцов
+          описывающих данные.
+          Однако обязательно присутствие следуюших столбцов:</p>
+        <ol>
+          <li>
+            <code>id</code> - уникальный идентификатор. Не может быть <code>NULL</code>.
+          </li>
+          <li>
+            <code>xml_path</code> - полный или относительный путь до целевого файла XML. Если путь относительный, то на
+            вкладке <span class="ui-item">Settings</span> ⮞ <span class="ui-item">General</span> ⮞ <span
+              class="ui-item">XML folder</span> необходимо указать недостающую часть пути от корня.
+            В случае если путь формируется из названия других колонок можно сделать столбец <code>xml_path</code>
+            автогенерируемым используя автогенерируемый столбец. Пример:
+            <div class="code" style="padding-top: 5px; height: 100%;"> 
+            <pre><code>
+             alter table <span class="table-name">xml_files</span> add column xml_path VARCHAR(300) GENERATED ALWAYS AS (section_name || '/' || file_type || '/' || file_name) STORED;
+            </code></pre>
+            </div>
+          </li>
+          <li><code>parsing_status</code> с типом <code>TEXT</code>/<code>VARCHAR</code>. Указывает на состояние
+            парсинга.
+            По умолчанию <code>NULL</code>
+          </li>
+          <li>
+            <code>processed_date</code> с типом <code>Text</code>/ <code>TIMESTAMP WITHOUT TIME ZONE</code> для хранения
+            времени обработки.
+          </li>
+          <li>
+            <code>filling_percent_stat</code> с типом <code>Numeric</code>/<code>SmallInt</code> для хранения статистики
+            заполненности докумета (Соответствующая настройка должна быть включена).
+          </li>
+        </ol>
+
+        <p>
+          Пример минимально необходимой структуры таблиц для SQLite и PostgreSQL:
+        </p>
+
+        <div class="snippet-container-two-columns">
+          <div style="text-align: center;">
+            <div class="code">
+            <pre><code>
+            CREATE TABLE <span class="table-name">xml_files</span> (
+                "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+                "xml_path" Text,
+                "parsing_status" Text,
+                "filling_percent_stat" Numeric,
+                "processed_date" Text,
+                CONSTRAINT "unique_id" UNIQUE ("id")
+            );
+              </code></pre>
+          </div>
+          </div>
+
+          <div style="text-align: center;">
+            <div class="code">
+            <pre><code>
+            CREATE TABLE <span class="table-name">xml_files</span> ( 
+                "id" BigInt primary key generated always as identity,
+                "xml_path" Character Varying(300),
+                "parsing_status" Character Varying(50),
+                "filling_percent_stat" SmallInt,
+                "processed_date" Timestamp Without Time Zone
+            );
+              </code></pre>
+          </div>
+          </div>
+
+        </div>
+
+        <p>По-умолчанию каждый <code>Job</code> запрашивает по 1000 файлов для обработки. В зависимости от ваших
+          потребностей это значение
+          может быть изменено.</p>
+
+
+        <h3 style="margin: 0;">Настройка параметров <code>Job</code> для многопроцессорной обработки</h3>
+        <p>
+          Для настройки отдельных <code>Job</code> во вкладке <span class="ui-item">Database</span> нажмите кнопку <span
+            class="ui-item">Add</span> и добавьте количество <code>Job</code> которое вы планируете одновременно
+          обрабатывать.
+          Количество <code>Job</code> не должно превышать количество доступных ядер процессора.
+        </p>
+
+        <p>
+          Так для таблицы имеющий структуру:
+        </p>
+
+        <div class="snippet-container-two-columns">
+          <div style="text-align: center;">
+            <div class="code">
+            <pre><code>
+        CREATE TABLE <span class="table-name">xml_files</span> (
+          "id" Integer PRIMARY KEY AUTOINCREMENT,
+          "xml_path" Text,
+          "parsing_status" Text,
+          "filling_percent_stat" Numeric,
+          "job_number" Numeric,
+          "doc_date" Text,
+          "section_name" Text,
+          "action_type" Text,
+          "some_status" Text,
+          "some_date" Text,
+          "some_flag" Text,
+        CONSTRAINT "unique_id" UNIQUE ( "id" ) 
+        );
+        </code></pre>
+          </div>
+          </div>
+        </div>
+
+        <p>Использование следующих настроек <code>Job</code>:</p>
+        <div class="img-container">
+          <img src="./images/jobs-sample.png" />
+        </div>
+
+        <p>Приведет к генерации следующего запроса на получение задач для обработки</p>
+        <div style="text-align: center;">
+          <div class="code">
+          <pre><code>
+          SELECT "id", "xml_path" 
+              FROM <span class="table-name">xml_files</span> WHERE 
+              parsing_status IS NULL
+              AND "job_number" IN (1,2,3,4)
+              AND "doc_date" >= DATE('2024-01-01')
+              AND "doc_date" <= DATE('2030-01-01')
+              AND "section_name" IN ('sectionA', 'sectionB', 'sectionC')
+              AND "action_type" IS NOT NULL
+              AND "some_status" IS NULL
+              AND "some_date" = DATE('2024-04-15')
+              AND "some_flag" IS TRUE
+            ORDER BY "id" ASC
+            LIMIT 1000;
+                  </code></pre>
+        </div>
+        </div>
+
+        <p>Пример создание двух Job:</p>
+        <div class="img-container">
+          <img src="./images/jobs-sample2.png" />
+        </div>
+
+
+        <p>
+          Запрос на выборку файлов для обработки, который будет сгенерирован вторым Job:
+        </p>
+
+        <div style="text-align: center;">
+          <div class="code">
+          <pre><code>
+          SELECT "id", "xml_path" 
+              FROM <span class="table-name">xml_files</span> WHERE 
+                parsing_status IS NULL  
+                AND "jobNumber" IN (5, 6, 7, 8) 
+                AND "section_name" = 'sectionD' 
+                ORDER BY "id" ASC 
+              LIMIT 1000;
+         </code></pre>
+        </div>
+        </div>
+
+        <details>
+          <summary>
+            Общий вид сгенерированного <code>job.txt</code>
+          </summary>
+
+          <pre><code>
+          job-number: 1
+          xml-table-name: "xml_files" 
+          limit: 1000 
+          order_by: "id ASC" 
+          select-fields: [
+              id xml_path
+          ] 
+          where-condition: [
+              [
+                  job_number: [1 2 3 4] 
+                  doc_date: ["2024-01-01" "2030-01-01"] 
+                  section_name: [sectionA sectionB sectionC] 
+                  action_type: "NOT NULL" 
+                  some_status: "NULL" 
+                  some_date: ["2024-04-15"] 
+                  some_flag: True
+              ] 
+              [
+                  job_number: [5 6 7 8]
+                  section_name: "sectionD"
+              ]
+          ]
+          </code><pre>
+      </details>
+
+
+      <p>Поддерживаются следующие форматы: <code>integer, string, Date, NULL, NOT NULL, TRUE, FALSE</code>
+      </p>
+      
+        <p>Примечание:</p> 
+        <ul>
+          <li>SQLite не поддерживает тип <code>BOOLEAN</code></li>
+          <li><code>Date</code> должна иметь формат <code>yyyy-mm-dd</code>        </li>
+          <li>Колонки: <code>id</code>, <code>parsing_status</code>, <code>xml_path</code> в явном виде в <code>Job</code> не фигурируют, однако как видно из примера
+            подставляются в запрос как обязательные.</li>
+        </ul>
+        
+      <p>Для сохранения <code>Job</code> обязательно нужно нажать <span class="ui-item">Save Job</span> и <span
+          class="ui-item">Save</span> в меню <span class="ui-item">Job Settings</span></p>
+
+      <div class="img-container">
+        <img src="./images/save_job_and_settings.png" />
+      </div>
+
+
+      
+    </article>
+    <hr>
+
+  </main>
+  <include src="/components/footer.html"></include>
+</body>
+
+</html>

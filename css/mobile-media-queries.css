@@ -1,0 +1,99 @@
+@media (orientation: landscape) {
+
+    #logo {
+        max-width: 100%;
+        max-height: 100%; 
+        margin-left: 1em; /* Отступ слева для лого */
+    }
+
+    header {
+        height: 3em;
+    }
+
+
+    body {  
+        font-size: 0.6em;
+        width: 100dvw;
+    }
+
+    .nav-menu ul li a {
+        font-size: 1.1em; /* Размер шрифта */
+    }    
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.7em;
+    }    
+
+    h3 {
+        font-size: 1.4em;
+    }    
+
+    h4 {
+        font-size: 1.3em;
+    }      
+
+    h5 {
+        font-size: 1.1em;
+    }  
+
+
+
+}
+  
+  @media (orientation: portrait) {
+
+    #logo {
+        max-width: 100%;
+        max-height: 100%;         
+    }
+
+    .nav-menu ul li a {
+        font-size: 1em; /* Размер шрифта */
+    }      
+
+    header {
+        height: 4em;
+    }
+
+
+    body {
+        font-size: 0.7em;
+        width: 100vw;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    h2 {
+        font-size: 1.3em;
+    }    
+
+    h3 {
+        font-size: 1.2em;
+    }    
+
+    h4 {
+        font-size: 1.1em;
+    }      
+
+    h5 {
+        font-size: 1.05em;
+    }     
+
+    .snippet-container {
+        font-size: 0.8em;
+    }
+  
+    .snippet-container-two-columns {
+        font-size: 0.8em;
+    }        
+
+
+  }
+
+ 

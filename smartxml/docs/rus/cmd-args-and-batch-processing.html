@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/mobile-media-queries.css" id="mobile-media-queries" disabled="disabled">
+    <link rel="stylesheet" href="/css/desktop-media-queries.css" id="desktop-media-queries" disabled="disabled">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <meta name="description" content="My description">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="/js/pre-code-fix.js" defer></script>
+    <script src="/js/media-queries.js" defer></script>
+    <script src="/js/include.js" defer></script>    
+    <title>ReData</title>
+</head>
+
+<body>
+    <header>
+        <include src="/components/nav.html"></include>
+    </header>
+
+    <main>
+        <include src="./components/docs-navbar.html"></include>
+
+        <article>
+
+            <p>Первоначальную настройку SmartXML рекомендуется производить с использованием графического интерфейса.
+                Однако в целях упрощения автоматизации обработки приложение может быть запущено вовсе без загрузки графического интерфейса.</p>
+
+            <ul>
+                <li>
+                    <p>Открыть проект с указанным именем:</p>
+                    <code>
+                     .\SmartXML -proj=sample_1
+                    </code>
+                </li>
+
+                <li>
+                    <p>Открыть проект с указанным именем и установить номер Job:</p>
+                    <code>
+                        .\SmartXML -proj=sample_1 -job=2
+                    </code>
+
+                    <p>Примечание: указание номера <code>Job</code> важно только в случае если XML для обработки содержатся в таблице
+                        БД</p>
+                    <p>Более подробная информация доступна на странице <a href="./jobs-settings.html">jobs-settings</a>
+                    </p>
+                    <p>Если <code>Job</code> не указан, то проект будет открыт по умолчанию с <code>Job</code> равным 1.</p>
+                </li>
+
+                <li>
+                    <p>Открыть проект с указанным именем, установить номер <code>Job</code> и автоматически запустить парсинг:</p>
+                    <code>
+                        .\SmartXML -proj=sample_1 -job=2 -start
+                    </code>
+                    <p>Примечание: указание номера <code>Job</code> важно только в случае если XML для обработки содержатся в таблице
+                        БД.</p>
+                    <p>Более подробная информация доступна на странице <a href="./jobs-settings.html">jobs-settings</a>.
+                    </p>
+                    <p>Если <code>Job</code> не указан, то проект будет открыт по умолчанию с <code>Job</code> равным 1.</p>
+                    <p>Ключ <code>-start</code> используется исключительно при работе с базой данных и НЕ используется
+                        при обработке одиночных файлов.</p>
+                </li>
+
+                <li>
+                    <p>Не запуская графический интерфейс открыть проект с указанным именем, установить номер <code>Job</code> и
+                        автоматически запустить парсинг:</p>
+                    <code>
+                        .\SmartXML -proj=sample_1 -job=2 -start -noui
+                    </code>
+
+                    <p>Примечание: указание номера <code>Job</code> важно только в случае если XML для обработки содержатся в таблице
+                        БД.</p>
+                    <p>Более подробная информация доступна на странице <a href="./jobs-settings.html">jobs-settings</a>.
+                    </p>
+                    <p>Если <code>Job</code> не указан, то проект будет открыт по умолчанию с <code>Job</code> равным 1.</p>
+                    <p>Ключ <code>-start</code> используется исключительно при работе с базой данных и НЕ используется
+                        при обработке одиночных файлов.</p>
+                    <p>По завершению всех задач парсинга, а так же если нет XML файлов для обработки выполняется выход
+                        из приложения.</p>
+                </li>
+
+
+                <li>
+                    <p>Запустить проект sample_1 и подставить XML файл для обработки. Ждать нажатия кнопки в интерфейсе:
+                    </p>
+                    <code>.\SmartXML.exe -proj=sample_1 -input=D:/code/SmartXML/data-samples/sample-1/example_1.xml</code>
+                </li>
+
+
+                <li>
+                    <p>Запустить проект sample_1, подставить XML для обработки, указать папку в которую нужно записать
+                        результат и целевой формат. Не отображать интерфейс:</p>
+                    <code>.\SmartXML.exe -proj=sample_1 -input=D:/code/SmartXML/data-samples/sample-1/example_1.xml -output=D:\test\output -format=json -noui</code>
+                    <p>Примечание: целевая папка должна существовать.</p>
+                    <p>Поддерживаются формат json и sql.</p>
+                </li>
+
+                <li>
+                    <p>Запустить проект sample_1, подставить XML для обработки, записать результат в тот же каталог где
+                        расположен оригинальный XML, указать целевой формат. Не отображать интерфейс:</p>
+                    <code>.\SmartXML.exe -proj=sample_1 -input=D:/code/SmartXML/data-samples/sample-1/example_1.xml -output=D:\test\output -format=json -noui</code>
+                    <p>Поддерживаются формат json и sql.</p>
+                </li>
+
+                <li>
+                    <p>Следующие теги можно комбинировать с примерами выше:</p>
+                    <p>По умолчанию парсер останавливается встретив неизвестные теги. Следующие аргументы командной
+                        строки позволяют изменить это поведение:</p>
+                    <code>.\SmartXML.exe -lu</code>
+                    <p>Логировать неизвестные теги. Добавлять их в интерфейс если он загружен:</p>
+                    <code>.\SmartXML.exe -su</code>
+                    <p>Пропускать неизвестные теги. Не останавливаться на них и не добавлять их в интерфейс (если он
+                        загружен).</p>
+
+                    <p>Примечание: Данные ключи могут потребоваться если в процессе пакетной обработки в XML документах
+                        могут встретиться неизвестные теги, обработка которых не принципиальна, и нет причин
+                        останавливать процесс обработки, а сами эти теги достаточно залогировать и/или пропустить.</p>
+                </li>
+
+            </ul>
+
+
+            <p>Если вам нужны гарантии того, что процесс будет перезапущен даже в случае возможной ошибки вы можете
+                воспользоваться следующим bat файлом:
+            </p>
+            <div style="text-align: center;">
+                <div class="code">
+                    <pre>
+                        <code>
+                            @echo off
+                            :Start
+                            D:\code\SmartXML\SmartXML.exe -proj=name -job=1 -start
+                            :: Wait 30 seconds before restarting.
+                            TIMEOUT /T 30
+                            GOTO:Start        
+                        </code>
+                    </pre>
+                </div>
+            </div>
+        </article>
+
+
+    </main>
+
+
+    <include src="/components/footer.html"></include>
+</body>
+
+</html>

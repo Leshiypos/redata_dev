@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/mobile-media-queries.css" id="mobile-media-queries" disabled="disabled">
+    <link rel="stylesheet" href="/css/desktop-media-queries.css" id="desktop-media-queries" disabled="disabled">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <meta charset="utf-8">
+    <meta name="description" content="My description">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="/js/pre-code-fix.js" defer></script>
+    <script src="/js/media-queries.js" defer></script>
+    <script src="/js/include.js" defer></script>
+    <title>ReData</title>
+</head>
+
+<body>
+        <header>
+            <include src="/components/nav.html"></include>
+        </header>
+        <main>
+    
+            <div class="page-navigation">
+                <h4>SmartXML > Docs</h4>
+            </div>
+    
+            <article>    
+               
+                <div class="doc-toc">
+                    <h4>Примеры проектов:</h4>
+                    <ul>
+                        <li><a href="./rus/how-to-parse-xml-into-sql-or-json.html">How to convert XML to SQL and JSON</a></li>
+                        <li><a href="./rus/how-to-load-multiple-xml-into-database.html">How to load a set of XML into a database</a></li>
+                        <li><a href="./rus/bringing-different-subtypes-of-xml-documents-to-a-generalized-form.html">Bringing different subtypes of xml documents to a generalized form</a></li>
+                        <li><a href="./rus/creating-database-table-patches-based-on-xml.html">Creating patches based on XML documents</a></li>
+                        <li><a href="./rus/type-conversion-in-xml-documents.html">Type conversion in xml documents</a></li>
+                    </ul>
+                </div>
+
+                <div class="doc-toc">
+                    <h4>Описание настроек:</h4>
+                    <ul>
+                        <li><a href="./rus/database-connection-configuration.html">Database connection configuration</a></li>
+                        <li><a href="./rus/jobs-settings.html">Jobs Settings</a></li>
+                        <li><a href="./rus/cmd-args-and-batch-processing.html">Command line arguments and batch processing</a></li>
+                    </ul>
+                </div>                
+
+                <div class="faq">
+                    <h4>FAQ:</h4>
+                    <details>
+                        <summary>Где взять ODBC Driver?</summary>
+                        <p>Текущая версия требует для подключения к базе данных ODBC драйвер. Необходима 32-битная версия
+                            ODBC драйвера.</p>
+                        <p>Для SQLite драйвер можно скачать <a
+                                href="http://www.ch-werner.de/sqliteodbc/sqliteodbc.exe">тут</a>.</p>
+                        <p>Для PostgreSQL рекомендуется установить ODBC драйвер через идущий в комплекте с PostgreSQL
+                            Application Stack Builder.</p>
+                    </details>
+                    <details>
+                        <summary>Почему ORM это плохо?</summary>
+                        <p>ORM не позволяет точно контролировать извлечение данные и обрабатывать сложные документы у
+                            которых нет чёткой схемы.</p>
+                        <p>Так же большинство ORM не позволяет сохранять пространственные отношения родитель-потомок между
+                            узлами.</p>
+                    </details>
+                    <details>
+                        <summary>Нужны ли XSD схемы?</summary>
+                        <p>Практика показывает, что XSD схемы создают больше проблем чем решают. Далеко не все XML файлы
+                            имеют XSD схемы. Далеко не все схемы корректны.</p>
+                    </details>
+    
+                    <details>
+                        <summary>Что такое грамматики и как писать правила NLP?</summary>
+                        <p>В SmartXML используется встроенный в язык Red движок Parse который позволяет выполнять ряд
+                            достаточно сложных манипуляций с данными. Движок крайне легковесный, поэтому он не может идти в
+                            сравнение с полновесными NLP движками, однако он крайне быстрый и позволяет делать то, что
+                            невозможно сделать с помощью тех же регулярных выражений.</p>
+                        <p>Вы можете написать правила самостоятельно изучив документацию <a
+                                href="https://github.com/red/docs/blob/master/en/parse.adoc">Parse</a> или заказать
+                            написание правил у нас.</p>
+                    </details>
+                </div>
+            </article>
+        </main>
+
+        <include src="/components/footer.html"></include>
+
+
+</body>
+
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/mobile-media-queries.css" id="mobile-media-queries" disabled="disabled">
+    <link rel="stylesheet" href="/css/desktop-media-queries.css" id="desktop-media-queries" disabled="disabled">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <meta name="description" content="My description">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="/js/pre-code-fix.js" defer></script>
+    <script src="/js/media-queries.js" defer></script>
+    <script src="/js/include.js" defer></script>    
+    <title>ReData</title>
+</head>
+
+<body>
+    <header>
+        <include src="/components/nav.html"></include>
+    </header>
+    <main>
+
+        <include src="./components/docs-navbar.html"></include>
+
+        <article>
+            <h2>Database connection configuration</h2>
+            <h3 id="sql-db-configuration">Конфигурация для работы с реляционными базами: PostgreSQL/SQLite</h3>
+            <ol>
+                <li>
+                    <p>Установите 32-битный ODBC драйвер для используемой базы данных.</p>
+                    <p>Для SQLite драйвер можно скачать <a
+                            href="http://www.ch-werner.de/sqliteodbc/sqliteodbc.exe">тут</a>.</p>
+                    <p>Для PostgreSQL рекомендуется установить ODBC драйвер через идущий в комплекте с PostgreSQL
+                        Application Stack Builder.</p>
+                    <p>На Linux используйте инструкции идущие в архиве с программой.</p>    
+                </li>
+                <li>
+                    <p>Имя драйвера на Windows можно посмотреть запустив <span class="ui-item">ODBC Data Sources (32-bit)</span></p>
+                    <p>На вкладке <span class="ui-item">Drivers</span> убедитесь что в списке отображаются
+                        установленные драйвера. Их имена могут
+                        отличаться от приведенных в примере имён по умолчанию. Однако обычно они следующие:
+                        <code>PostgreSQL ODBC Driver(UNICODE)</code> и <code>SQLite3 ODBC Driver</code>.
+                    </p>    
+                    <p>На Linux список установленных ODBC драйверов обычно находится в <span class="code-inline-snippet">/etc/odbcinst.ini</span></p>                
+                </li>
+                <li>
+       
+                    <p>
+                        Откройте ваш проект и на вкладке <span class="ui-item">Settings</span>⮞<span
+                            class="ui-item">Database</span> для используемых баз данных укажите реквизиты доступа. В
+                        примере показана настройка SQLite.</p>
+
+                    <div class="img-container">
+                        <img src="./images/sqlite-driver-name.png" />
+                    </div>
+
+                    <p>Сохраните изменения нажав кнопку <span class="ui-item">Save</span>.</p>
+
+                </li>
+                <li>
+                    <p>Перейдите на вкладку <span class="ui-item">Settings</span>⮞<span class="ui-item">General</span>
+                    </p>
+
+                    <div class="img-container">
+                        <img src="./images/settings-general.png" />
+                    </div>
+
+                    <p>Если в базе данных хранится полный путь, то оставьте поле <span class="ui-item">XML Folder</span> пустым.</p>
+
+                    <p>Если база содержит относительный путь до XML файлов укажите недостающую
+                        часть пути.</p>
+                    <p>
+                        <strong>Пример</strong>: Если в вашей базе хранится ссылка на файл относительная вида:
+                        <span class="code-inline-snippet">basic-sample/example_1.xml</span>, а полный путь до XML файла выглядит
+                        следующим
+                        образом: <span class="code-inline-snippet">D:\code\SmartXML\data-samples\basic-sample\example_1.xml</span>, то
+                        требуется указать в этом поле недостающую часть пути, а именно <span
+                            class="code-inline-snippet">D:\code\SmartXML\data-samples</span>. После чего SmartXML при обращении к файлам будет
+                        склеивать эти пути в полный путь вида: <span class="code-inline-snippet">D:\code\SmartXML\data-samples\basic-sample\example_1.xml</span>
+                    </p>
+
+                    <p>При необходимости включите сбор статистики по заполнению разобранных файлов <span class="ui-item">Write to DB
+                            column filling stat</span></p>
+
+                    <p>Убедитесь что установлена галочка <span class="ui-item">Connect to DB at project
+                            opening</span></p>
+                    <p>
+                        Параметры <span class="ui-item">Source Database</span> и <span class="ui-item">Target
+                            Database</span> отвечают за исходную и целевую базу данных. Поддерживается работа как с
+                        одной единственной базой данных, так и в ситуации когда ссылки на исходные данные хранятся
+                        в одной БД, а результаты парсинга требуется поместить в другую БД. Обычно это происходит когда результаты требуется загрузить в NoSQL.</p>
+                         <p>В указанном примере
+                        исходная таблица <span class="table-name">xml_files</span>  будет находиться в той же базе, что и результаты
+                        парсинга. Поэтому в <span class="ui-item">Source Database</span> и <span class="ui-item">Target
+                            Database</span> будет установлена <code>SQLite</code>.</p>
+
+                    <p>Сохраните изменения нажав кнопку <span class="ui-item">Save</span>.</p>
+                    <p><strong>Обязательно перезапустите SmartXML и откройте проект заново</strong>. Без этого подключение к БД не будет установлено.</p>
+                </li>
+            </ol>
+
+            <h3 id="nosql-db-configuration">Конфигурация для работы с NoSQL базами данных</h3>
+            <ol>
+                <li>
+                    <p>
+                        Убедитесь что ваша база данных поддерживает работу по интерфейсу http(s)
+                    </p>
+                </li> 
+                <li>
+                    <p>
+                        На вкладке <span class="ui-item">Settings</span>⮞<span class="ui-item">General</span>
+                        установите <span class="ui-item">Target Database</span> в
+                        <code>NoSQL</code>
+                    </p>
+
+                    <div class="img-container">
+                        <img src="./images/settings-general-nosql.png" />
+                    </div>
+
+                </li>
+                <li>Перейдите на вкладку <span class="ui-item">Settings</span>⮞<span
+                        class="ui-item">Database</span>⮞<span class="ui-item">NoSQL Settings</span> и укажите
+                    реквизиты доступа: <span class="ui-item">NoSQL URL</span>, <span class="ui-item">login</span>,
+                    <span class="ui-item">password</span>
+
+                    <div class="img-container">
+                        <img src="./images/nosql-settings.png" />
+                    </div>
+
+                </li>
+
+
+                    <p>Логическая группировка данных в NoSQL происходит посредством коллекций. В SmartXML каждая
+                        секция играет роль коллекции в NoSQL. Большинство популярных баз данных требует,
+                        чтобы
+                        URL для отправки данных содержал так же имя коллекции в которую будет происходить
+                        вставка.</p>
+
+                    <p>
+                        Поэтому убедитесь что установлена галочка <span class="ui-item">Use a section name as
+                            a collection name</span>
+                    </p>
+
+
+                    <p>Теперь после разбора каждый файл, будет отправлен для вставки по адресу имеющему
+                        следующий
+                        вид:</p>
+
+                    <p><code>http://localhost:8529/_db/[db-name]/_api/document/[section]</code></p>
+                    <p>Где:</p>
+                    <ul>
+                        <li><code>localhost</code> - адрес сервера</li>
+                        <li><code>8529</code> - порт который использует ваша БД</li>
+                        <li><code>[db-name]</code> - имя использумой базы данных. Может отличаться от имени
+                            проекта
+                        </li>
+                        <li><code>[section]</code> - имя коллекции, которое должно совпадать с именем
+                            подсекции в
+                            SmartXML</li>
+                        <li><code>document</code> - тип хранимых данных. Указвыается при создании коллекции</li>
+                    </ul>
+            </ol>
+
+
+<!-- 
+                    <p>Предположим у нас есть некий проект по разбору документов двух банков и каждый банк
+                        предоставляет нам
+                        три типа документов: <code>transaction-monitoring</code>,
+                        <code>suspicious-activity</code>,
+                        <code>compliance-docs</code>.
+                    </p> -->
+
+                    <p>
+                    Так в проекте <code>sample_1</code> имя секции <code>sample</code> имя подсекции в простых случаях может совпадать с именем секции и значения не играет.</p>
+                    <div class="img-container">
+                        <img src="./images/section-name-sample.png" />
+                    </div>
+                    
+                    <p>Значит коректным <span class="ui-item">NoSQL URL</span> будет:
+                        <code>http://localhost:8529/_db/testdb/_api/document/</code>    
+                    </p>
+
+                    <p>А сама отправка данных произойдет на адрес:
+                        <code>http://localhost:8529/_db/testdb/_api/document/sample</code>    
+                    </p>
+
+    
+
+                    <h3>Настройка NoSQL на примере ArangoDB</h3>                 
+
+                    <div class="screenshot-list">
+                            <details>
+                                <summary>Создайте в ArangoDB новую базу данных</summary>
+                                
+                                <div class="img-container">
+                                    <img src="./images/arangodb/add-db.png" />
+                                </div>
+
+                            </details>
+
+
+                            <details>
+                                <summary>Укажите имя новой базы данных</summary>
+                                
+                                <div class="img-container">
+                                    <img src="./images/arangodb/create-testdb.png" />
+                                </div>
+
+                            </details>
+                            
+                            
+                            <details>
+                                <summary>Переключитесь на новую базу, никогда не используйте системную</summary>
+                                
+                                <div class="img-container">
+                                    <img src="./images/arangodb/switch-to-testdb-1.png" />
+                                </div>
+
+                            </details>
+
+
+                            <details>
+                                <summary>Выберите созданную базу</summary>
+                                
+                                <div class="img-container">
+                                    <img src="./images/arangodb/switch-to-testdb-2.png" />
+                                </div>
+
+                            </details>
+
+
+                            <details>
+                                <summary>Добавьте новую коллекцию</summary>
+                                
+                                <div class="img-container">
+                                    <img src="./images/arangodb/create-new-collection-1.png" />
+                                </div>
+
+                            </details>           
+                            
+
+                            <details>
+                                <summary>Укажите имя новой коллекции. Имя должно совпадать с именами секций проекта</summary>
+                                
+                                <div class="img-container">
+                                    <img src="./images/arangodb/create-new-collection-2.png" />
+                                </div>
+                            </details>
+
+                    </div>                            
+                    
+                    <p>
+                        После выполнения данных шагов NoSQL база готова к загрузке данных.
+                    </p>
+
+                    
+
+
+        </article>
+
+
+    </main>
+    <include src="/components/footer.html"></include>
+</body>
+
+</html>

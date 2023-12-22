@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/mobile-media-queries.css" id="mobile-media-queries" disabled="disabled">
+    <link rel="stylesheet" href="/css/desktop-media-queries.css" id="desktop-media-queries" disabled="disabled">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <meta charset="utf-8">
+    <meta name="description" content="My description">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer="" src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="/js/pre-code-fix.js" defer=""></script>
+    <script src="/js/media-queries.js" defer=""></script>
+    <script src="/js/include.js" defer=""></script>
+    <title>ReData</title>
+</head>
+
+<body>
+    <header>
+        <include src="/components/nav.html"></include>
+    </header>
+
+    <main>
+
+        <div class="page-navigation">
+            <h4>SmartXML</h4>
+        </div>
+
+        <article x-data="{ oneYear: false }">
+            <div class="slogan">
+                <h4>Easy way to parse XML</h4>
+            </div>
+
+            <div class="video">
+                <iframe src="https://www.youtube.com/embed/V28lp1_UJy4?si=imDWiJj5Q8eAI1wt" title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen=""></iframe>
+            </div>
+            <blockquote>
+                Total privacy. Your data stays with you. No recurring charges!
+                <!-- <footer><i>Pay only for batch processing</i></footer> -->
+            </blockquote>
+
+            <div class="price-block-parent">
+                <div class="price-items">
+                    <aside>
+                        <h5 style="margin-top: 0px; text-align: center; margin-bottom: 0;">Free License</h5>
+                        <h5 style="margin-top: 0px; text-align: center;"><mark
+                                style="background-color: rgb(218, 228, 241)">$0</mark>/year</h5>
+                        <p class="green">+ PostgreSQL/SQLite</p>
+                        <p class="green">+ NoSQL</p>
+                        <p class="green">+ TinyNLP Engine</p>
+                        <p class="orange">+/- Multiprocessing</p>
+
+                        <p class="red">- Batch Processing<sup
+                                style="font-size: 60%; background-color: rgb(242, 225, 225); color: black;">*10
+                                files in
+                                one go</sup></p>
+                        <p class="red">- Premium support</p>
+                    </aside>
+                    <aside>
+                        <h5 style="margin-top: 0px; text-align: center;  margin-bottom: 0;">Standard License</h5>
+                        <h5 style="margin-top: 0px; text-align: center;">
+                            <div style="white-space: nowrap">
+                                <template x-if="!oneYear">
+                                    <mark style="background-color: rgb(218, 228, 241)"></mark>
+                                </template>
+                                <template x-if="oneYear">
+                                    <mark style="background-color: rgb(218, 228, 241)"></mark>
+                                </template>
+                                <span :class="oneYear ? '' : 'selectedPeriod'" @click="oneYear = false">$20 month</span>
+                                / <span :class="oneYear ? 'selectedPeriod' : '' " @click="oneYear = true">$185
+                                    year</span>
+                            </div>
+                        </h5>
+
+                        <p class="green">+ PostgreSQL/SQLite</p>
+                        <p class="green">+ NoSQL</p>
+                        <p class="green">+ TinyNLP Engine</p>
+                        <p class="green">+ Multiprocessing</p>
+
+                        <p class="green">+ Batch Processing</p>
+                        <p class="red">- Premium support</p>
+                    </aside>
+                    <aside>
+                        <h5 style="margin-top: 0px; text-align: center; margin-bottom: 0;">Pro License</h5>
+                        <h5 style="margin-top: 0px; text-align: center;"><mark
+                                style="background-color: rgb(218, 228, 241)">Price on demand</mark></h5>
+                        <p class="green">+ PostgreSQL/SQLite</p>
+                        <p class="green">+ NoSQL</p>
+                        <p class="green">+ TinyNLP Engine</p>
+                        <p class="green">+ Multiprocessing</p>
+
+                        <p class="green">+ Batch Processing</p>
+                        <p class="green">+ Premium support</p>
+                    </aside>
+
+                </div>
+
+                <div style="width: 90%; display: flex; justify-content: space-around;">
+
+
+                    <template x-if="!oneYear">
+                        <a href="https://store.payproglobal.com/checkout?products[1][id]=85920&amp;page-template=17291"><i>Buy
+                                License</i></a>
+                    </template>
+                    <template x-if="oneYear">
+                        <a href="https://store.payproglobal.com/checkout?products[1][id]=85217&amp;page-template=17291"><i>Buy
+                                License</i></a>
+                    </template>
+
+                </div>
+
+
+            </div>
+
+            <hr>
+
+            <div style="width: 100%; display: flex; flex-direction: column; align-items: center;" id="downloadTable">
+
+                    <div x-data="{currentTab: 'windows'}" class="download-table-tab-wrapper">
+                        <ul class="download-table-tab-control">
+                            <li>
+                                <button @click="currentTab = 'windows'" :class="{ active: currentTab === 'windows' }">Windows</button>
+                            </li>
+                            <li>
+                                <button @click="currentTab = 'linux'" :class="{ active: currentTab === 'linux' }">Linux</button>
+                            </li>
+                        </ul>
+
+                        <!-- <div class="download-table-container" id="downloadTable"> -->
+
+
+                            <div class="download-tab-panel" :class="{ active: currentTab === 'windows' }">
+                                <table border="1">
+                                    <tbody>
+                                        <tr>
+                                            <th>Filename</th>
+                                            <th>Description</th>
+                                            <th>Size</th>
+                                            <th>Link</th>
+                                        </tr>
+                                        <tr>
+                                            <td>SmartXmlSetup.exe</td>
+                                            <td>Setup</td>
+                                            <td>2.03 MB</td>
+                                            <td><a href="SmartXmlSetup.exe">Download</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>SmartXmlPortable.zip</td>
+                                            <td>Portable version</td>
+                                            <td>0.75 MB</td>
+                                            <td><a href="SmartXmlPortable.zip">Download</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                            <div class="download-tab-panel" :class="{ active: currentTab === 'linux' }">
+                                <table border="1">
+                                    <tbody>
+                                        <tr>
+                                            <th>Filename</th>
+                                            <th>Description</th>
+                                            <th>Size</th>
+                                            <th>Link</th>
+                                        </tr>
+                                        <tr>
+                                            <td>file.xz</td>
+                                            <td>Portable version</td>
+                                            <td>0.00 MB</td>
+                                            <td><a href="file.xz">Download</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+
+
+                        <!-- </div> -->
+
+                    </div>
+
+
+
+
+
+                    
+             
+
+                <div>
+                    <a href="./docs"><i>Documentation</i></a>
+                </div>
+
+
+            </div>
+
+
+        </article>
+    </main>
+
+
+    <include src="/components/footer.html"></include>
+
+
+
+
+
+
+</body>
+
+</html>
