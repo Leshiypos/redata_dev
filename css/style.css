@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Roboto Mono";
-    src: url('../fonts/static/RobotoMono-Regular.ttf');
+    src: url('../fonts/static/RobotoMono-Regular.ttf') format('truetype');
 }
 :root {
     --active-brightness: 0.85;
@@ -10,7 +10,7 @@
     --color-accent: #118bee15;
     --color-bg: #fff;
     --color-bg-secondary: #e9e9e9;
-    --color-btn: rgb(222, 148, 11);
+    --color-btn: #668fc5;
     --color-link: #000;
     --color-secondary: #920de9;
     --color-secondary-accent: #920de90b;
@@ -210,6 +210,8 @@ main article {
 
 header {
     height: 2.5em;
+    padding: 15px 15px 50px 15px;
+
 }
 
 nav>a {
@@ -221,7 +223,7 @@ nav>a {
     /* ни в коем случае не указывать ширину просто width иначе на iphone лого в центре окажется */
     max-width: 100%;
     max-height: 100%;
-    background-color: #ffffff;
+    /*background-color: #ffffff;*/
     padding-right: 1em;
 }
 
@@ -242,7 +244,7 @@ nav {
     display: flex;
     font-weight: bold;
     justify-content: space-between;
-    background-color: #77A6F7;
+    /*background-color: #77A6F7;*/
 }
 
 /* Стилизация меню */
@@ -257,9 +259,10 @@ nav {
 }
 
 .nav-menu li {
-    border: 1px solid #000;
+    /*border: 1px solid #000;
     padding: 3px;
-    background-color: #fff;
+    background-color: #fff;*/
+    margin-left: 15px;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -371,7 +374,7 @@ details summary {
 
 
 h1 {
-    font-size: 1.7em;
+    font-size: 1.3em;
 }
 
 h2 {
@@ -549,18 +552,21 @@ a i {
     font-family: 'Poppins', sans-serif;
     background-color: var(--color-btn);
     /* border: 2px solid var(--color-link); */
-    border-radius: 5px;
+    border-radius: 3px;
     /* Закругляем углы */
     color: #fff;
     display: inline-block;
-    padding: 7px 12px;
+    padding: 15px 40px;
     font-size: 0.9em;
     box-shadow: 0px -5px 5px -5px rgba(34, 60, 80, 0.6) inset;
     margin-bottom: 10px;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-style: normal;
 }
 
 a i:hover {
-    box-shadow: 0px 0px 16px 3px rgba(222, 148, 11, 0.34);
+    text-decoration: underline;
 }
 article aside a {
     color: var(--color-secondary);
@@ -975,9 +981,52 @@ hr {
     float: right; 
     margin: 0.5em; 
     max-width: 50%;
+    margin-left: 20px;
+    clear: right;
 }
-.main__page h1{
-    display: inline-block;
-    width: 30%;
-    text-align: left;
-}
+    .main__page h1{
+        display: inline-block;
+
+        text-align: left;
+        margin-bottom: 25px;
+        font-weight: 700;
+    }
+    .section_one{
+        overflow: hidden;
+    }
+        .section_one p{
+            overflow: hidden;
+            font-size: 16px;
+            word-spacing: 1.1em;
+            font-weight: 500;
+            line-height: 1.5;
+            padding-bottom: 15px;
+        }
+    .section_two {
+        clear: both;
+        margin-top: 0;;
+        max-width: 80%;
+        font-size: 16px;
+    }
+        .section_two ul{
+            margin-top: -10px;
+            margin-bottom: 25px;
+            margin-left: 75px;
+            line-height: 1.5;
+        }
+
+    .section_two p{
+        margin-bottom: 20px;
+    }
+    .margin_left{
+        margin-left: 50px;
+    }
+    .learn-more {
+        margin-top: 25px;
+    }
+    #contacts{
+        font-size: 12px;
+    }
+    .bold{
+        font-weight: 600;
+    }
