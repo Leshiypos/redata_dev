@@ -183,6 +183,8 @@ footer {
     text-align: center;
     font-size: 1em;
     padding: 10px 0;
+    background-color: #EBEFF4;
+    padding: 40px 0;
     /* padding: 10px 0; */
 }
 
@@ -984,6 +986,9 @@ hr {
     margin-left: 20px;
     clear: right;
 }
+.main__page{
+    padding-bottom: 40px;
+}
     .main__page h1{
         display: inline-block;
 
@@ -1030,3 +1035,66 @@ hr {
     .bold{
         font-weight: 600;
     }
+    .scroll_bar{
+        background: #d8e0ea;
+        width: 100%;
+    }
+    .scroll_bar ul{
+        display: flex;
+        list-style: none;
+        align-items:center;
+        justify-content: space-around;
+        margin: 20px 0;
+        flex-flow: row wrap;
+    }
+    .scroll_bar ul li{
+        order: 1 1 130px;
+    }
+    @media screen and (max-width: 930px){
+        .img_main {
+            float: none;
+            max-width: 100%;
+            margin: 0;
+        }
+        .section_one {
+            overflow: visible;
+        }
+      }
+
+@media screen and (max-width: 560px){
+    .scroll_bar ul{
+        display: flex;
+        flex-flow: column wrap;
+    }
+    .scroll_bar ul li{
+        margin: 10px 0;
+    }
+    .main__page h1{
+        font-size: 1.7em;
+    }
+    .section_one{
+        padding-bottom: 0;
+    }
+    .section_two{
+        max-width: 100%;
+        margin-top: 20px;
+    }
+    .section_two p, .section_two ul{
+        margin-left: 0;
+        font-size: 16px;
+    }
+    .section_two p{
+        font-size: 20px;
+    }
+    .section_two ul{
+        margin-left: 15px;
+    }
+    .nav-menu a {
+        font-size: 1.3em;
+    }
+    #logo {
+        max-width: 90%;
+        max-height: 90%;
+    }
+    
+}
