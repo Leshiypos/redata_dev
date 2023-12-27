@@ -46,9 +46,8 @@
             <div class="price-block-parent">
                 <div class="price-items">
                     <aside class="price_block">
-                        <h5 style="margin-top: 0px; text-align: center; margin-bottom: 0;">Free License</h5>
-                        <h5 style="margin-top: 0px; text-align: center;"><mark
-                                style="background-color: rgb(218, 228, 241)">$0</mark>/year</h5>
+                        <h5 class="underl" style="margin-top: 0px; text-align: center; margin-bottom: 0;">Free License</h5>
+                        <h5 style="margin-top: 0px; text-align: center;"><mark class="standart_price">$0</mark>/year</h5>
                         <p class="green">+ PostgreSQL/SQLite</p>
                         <p class="green">+ NoSQL</p>
                         <p class="green">+ TinyNLP Engine</p>
@@ -60,18 +59,16 @@
                                 one go</sup></p>
                         <p class="red">- Premium support</p>
                     </aside>
-                    <aside class="price_block">
-                        <h5 style="margin-top: 0px; text-align: center;  margin-bottom: 0;">Standard License</h5>
+                    <aside class="price_block standart_block">
+                        <h5 class="standart" style="margin-top: 0px; text-align: center;  margin-bottom: 0;">Standard License</h5>
                         <h5 style="margin-top: 0px; text-align: center;">
                             <div style="white-space: nowrap">
                                 <template x-if="!oneYear">
-                                    <mark style="background-color: rgb(218, 228, 241)"></mark>
                                 </template>
                                 <template x-if="oneYear">
-                                    <mark style="background-color: rgb(218, 228, 241)"></mark>
                                 </template>
                                 <span :class="oneYear ? '' : 'selectedPeriod'" @click="oneYear = false">$20 month</span>
-                                / <span :class="oneYear ? 'selectedPeriod' : '' " @click="oneYear = true">$185
+                                / <span class="standart_price" :class="oneYear ? 'selectedPeriod' : '' " @click="oneYear = true">$185
                                     year</span>
                             </div>
                         </h5>
@@ -85,9 +82,8 @@
                         <p class="red">- Premium support</p>
                     </aside>
                     <aside class="price_block">
-                        <h5 style="margin-top: 0px; text-align: center; margin-bottom: 0;">Pro License</h5>
-                        <h5 style="margin-top: 0px; text-align: center;"><mark
-                                style="background-color: rgb(218, 228, 241)">Price on demand</mark></h5>
+                        <h5 class="underl" style="margin-top: 0px; text-align: center; margin-bottom: 0;">Pro License</h5>
+                        <h5 style="margin-top: 0px; text-align: center;"><mark class="">Price on demand</mark></h5>
                         <p class="green">+ PostgreSQL/SQLite</p>
                         <p class="green">+ NoSQL</p>
                         <p class="green">+ TinyNLP Engine</p>

@@ -424,6 +424,7 @@ h6 {
 
 mark {
     padding: 0.1rem;
+    background-color:transparent;
 }
 
 article .screenshot-list {
@@ -725,7 +726,7 @@ table {
     border-radius: var(--border-radius);
     border-spacing: 0;
     background: #fff;
-    font-size: 1em;
+    font-size: 1rem;
     margin: 0 auto;
 }
 
@@ -766,7 +767,7 @@ table tr:nth-child(even) {
 /* Quotes */
 blockquote {
     display: block;
-    font-size: 1.2em;
+    font-size: 1em;
     background-color: #d5ebfd;
     text-align: center;
     margin: 10px 18px;
@@ -807,7 +808,7 @@ blockquote footer {
 }
 
 .selectedPeriod {
-    text-decoration: underline;
+    /*text-decoration: underline;*/
     text-decoration-color: rgba(147, 18, 18, 0.724);
     text-decoration-thickness: 0.15em;
 
@@ -981,6 +982,19 @@ hr {
     background-color: rgb(203, 6, 6);
 }
 /*Wp-dev*/
+h1{
+    font-weight: 600;
+}
+.page-navigation h1{
+    margin: 0 20px;
+}
+.slogan h2{
+    margin: 0 20px;
+}
+    .blue{
+        background-color:#507EB1;
+        color:rgb(255, 255, 255)
+    }
 .img_main{
     float: right; 
     margin: 0.5em; 
@@ -1003,7 +1017,7 @@ hr {
     }
         .section_one p{
             overflow: hidden;
-            font-size: 16px;
+            font-size: 1rem;
             word-spacing: 1.1em;
             font-weight: 500;
             line-height: 1.5;
@@ -1059,6 +1073,24 @@ hr {
     }
     .price_block h5{
         margin-bottom: 10px;
+    }
+    .price_block p{
+        font-size: 1rem;
+    }
+    .standart{
+        background-color: #507EB1;
+        color:rgb(255, 255, 255);
+    }
+    .standart_price{
+        font-weight: 600;
+        text-decoration: none;
+    }
+    .standart_block{
+        background-color:#dff6ff;
+    }
+    .underl{
+        text-decoration: underline;
+        font-weight: 600;
     }
     @media screen and (max-width: 930px){
         .img_main {
