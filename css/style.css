@@ -105,12 +105,14 @@ article aside {
 
 .download-table-tab-control {
     margin: 0.1em;
-
     /* padding-bottom: 10px; */
     display: flex; 
-    /* list-style: none;  */
+    list-style: none;
     justify-content: center;
 }
+    .download-table-tab-control li{
+        margin: 0 20px;
+    }
 
 .download-table-tab-control:hover {
     cursor: pointer;
@@ -380,7 +382,7 @@ h1 {
 }
 
 h2 {
-    font-size: 1.5em;
+    font-size: 1.1em;
 }
 
 h3 {
@@ -404,7 +406,6 @@ h6 {
     /* margin: 0.2em; */
     line-height: var(--line-height);
     font-weight: 500;
-    text-align: center;
 }
 
 /* table of contents should be left alligned  */
@@ -588,17 +589,17 @@ article .doc-toc {
 
 p.green {
     margin: 0;
-    background-color: rgb(192, 241, 144);
+    background-color: rgb(146 199 240 / 80%);
 }
 
 p.red {
     margin: 0;
-    background-color: rgb(255, 179, 138);
+    background-color: rgb(255 0 0 / 50%);
 }
 
 p.orange {
     margin: 0;
-    background-color: rgb(255, 224, 138);
+    background-color: rgb(249 157 157 / 50%);
 }
 
 /* Images */
@@ -768,6 +769,7 @@ blockquote {
     font-size: 1.2em;
     background-color: #d5ebfd;
     text-align: center;
+    margin: 10px 18px;
     
 }
 
@@ -1049,6 +1051,14 @@ hr {
     }
     .scroll_bar ul li{
         order: 1 1 130px;
+    }
+    .copyright-link, .copyright-link a{
+        color: #283f59;
+        font-size: 14px;
+        font-weight: 400;
+    }
+    .price_block h5{
+        margin-bottom: 10px;
     }
     @media screen and (max-width: 930px){
         .img_main {
