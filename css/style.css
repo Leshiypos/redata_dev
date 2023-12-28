@@ -110,9 +110,6 @@ article aside {
     list-style: none;
     justify-content: center;
 }
-    .download-table-tab-control li{
-        margin: 0 20px;
-    }
 
 .download-table-tab-control:hover {
     cursor: pointer;
@@ -141,12 +138,13 @@ article aside {
 
 
 .video {
-    padding-top: 0.5em;
+    padding-top: 2em;
     /* height: 100%; */
     /* width: 90%; */
     /* min-width: 90%; */
     width: 80%;
     margin: 0 auto;
+    padding-bottom: 2em;
 }
 
 .video>img {
@@ -186,8 +184,7 @@ footer {
     font-size: 1em;
     padding: 10px 0;
     background-color: #EBEFF4;
-    padding: 40px 0;
-    /* padding: 10px 0; */
+    padding: 10px 0;
 }
 
 /* hr {
@@ -227,7 +224,7 @@ nav>a {
     /* ни в коем случае не указывать ширину просто width иначе на iphone лого в центре окажется */
     max-width: 100%;
     max-height: 100%;
-    /*background-color: #ffffff;*/
+    background-color: #F8F8FA;
     padding-right: 1em;
 }
 
@@ -248,7 +245,7 @@ nav {
     display: flex;
     font-weight: bold;
     justify-content: space-between;
-    /*background-color: #77A6F7;*/
+    background-color: #77A6F7;
 }
 
 /* Стилизация меню */
@@ -284,6 +281,8 @@ nav {
     font-size: 1em;
     /* Размер шрифта */
     font-family: 'Poppins', sans-serif;
+    background-color: #F8F8FA;
+    padding: 10px 20px;
 }
 
 .submenu {
@@ -1032,8 +1031,9 @@ h1{
         .section_two ul{
             margin-top: -10px;
             margin-bottom: 25px;
-            margin-left: 75px;
+            margin-left: 25px;
             line-height: 1.5;
+            list-style:disc;
         }
 
     .section_two p{
@@ -1076,6 +1076,8 @@ h1{
     }
     .price_block p{
         font-size: 1rem;
+        padding: 4px 0;
+        margin: 0;
     }
     .standart{
         background-color: #507EB1;
@@ -1085,13 +1087,54 @@ h1{
         font-weight: 600;
         text-decoration: none;
     }
-    .standart_block{
-        background-color:#dff6ff;
-    }
     .underl{
         text-decoration: underline;
-        font-weight: 600;
     }
+    /*Price block */
+    .standart_block{
+        background-color:#507EB1;
+        border: none;
+        color:rgb(255, 255, 255);
+    }
+    .simple{
+        border: 5px solid #507EB1;
+    }
+        .simple h5{
+            color: #000000;
+        }
+        .simple p{
+            color: #464646;
+        }
+        .no_incude{
+            text-decoration: line-through;
+            opacity: .7;
+            position: relative;
+        }
+            .no_incude sup{
+                position: absolute;
+                top: -10px;
+
+            }
+        .by_license_btn a i{
+            background-color: #FF6A2E;
+        }
+        /*DOCS */
+        .doc-toc ul, .faq details{
+            font-size: 1rem;
+            margin: 10px 0;
+            margin-left: 45px;
+            font-weight: 400;
+        }
+            .faq details{
+                margin-left: 50px
+            }
+        .doc-toc h4, .faq h4{
+            margin-left: 25px;
+            font-size: 1.1rem;
+        }
+            .faq details p {
+                margin-left: 40px;
+            }
     @media screen and (max-width: 930px){
         .img_main {
             float: none;
