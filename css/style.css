@@ -1135,6 +1135,9 @@ h1{
             .faq details p {
                 margin-left: 40px;
             }
+            .doc-toc li a{
+                text-decoration: none;
+            }
     @media screen and (max-width: 930px){
         .img_main {
             float: none;
