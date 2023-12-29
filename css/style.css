@@ -311,7 +311,7 @@ nav {
     display: block;
     min-width: 120px;
     text-align: center;
-
+    /* border-top: 1px solid #939393; */
 }
 
 /* Стилизация при наведении */
@@ -958,7 +958,7 @@ code {
     overflow-y: hidden;
     -webkit-text-size-adjust: none;
     text-size-adjust: none;
-    letter-spacing: -2px;
+    letter-spacing: -1px;
 }
 
 pre {
@@ -1142,6 +1142,9 @@ h1{
             .doc-toc li a{
                 text-decoration: none;
             }
+    .text_cent{
+        text-align: center;
+    }
     @media screen and (max-width: 930px){
         .img_main {
             float: none;

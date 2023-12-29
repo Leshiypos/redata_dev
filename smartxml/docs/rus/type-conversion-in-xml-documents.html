@@ -48,6 +48,7 @@
       <p>Хотя использование TinyNLP требует написание кода, для обработки большинства XML это может не потребоваться вовсе или объем кода будет сведен к минимуму. Так же подразумевается что тестирование и отладка должны происходить непосредственно в интерпретаторе языка <a href="https://red-lang.org/">red-lang</a>.</p>
 
       <p>Предположим у нас есть следующий не вполне корректно заполненный XML:</p>
+      <div class="text_cent">
       <div class="code">
       <pre><code>
         <span class="tag-name">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
@@ -61,6 +62,7 @@
           <span class="tag-name">&lt;MaritalStatus&gt;</span><span class="tag-value">Single</span><span class="tag-name">&lt;/MaritalStatus&gt;</span>
         <span class="tag-name">&lt;/data&gt;</span>
       </code></pre>
+      </div>
       </div>
 
 
@@ -78,7 +80,8 @@
     </ul>
     
     <p>Опишем в подсекция <span class="code-inline-snippet">sample</span> данные в формате промежуточного представления. Так же укажем поля которые мы хотим извлечь из оригинальных данных и сохраним результат.</p>
-
+    
+    <div class="text_cent">
     <div class="code">
       <pre><code>
         <span class="tag-name">name</span>: <span class="tag-value">none</span>
@@ -94,9 +97,11 @@
         <span class="tag-name">is_marital</span>: <span class="tag-value">none</span>
       </code></pre>
     </div>
+  </div>
       
     <p>Нажмем <span class="ui-item">Morphology</span> и установим соответствия между именами в промежуточном представлении и тегами в XML. В итоге получим следующее представление:</p>
 
+    <div class="text_cent">
     <div class="code">
       <pre><code>
           <span class="tag-name">name</span>: <span class="tag-value">"John Doe"</span>
@@ -112,6 +117,7 @@
           <span class="tag-name">is_marital</span>: <span class="tag-value">"Single"</span>
       </code></pre>
     </div>
+  </div>
 
       <p>Теперь нужно создать правила заполняющие поля со значением <code>none</code> данными.</p>
       <p>Откроем в текстовом редакторе файл проекта: <span
@@ -119,15 +125,18 @@
 
       <p>По-молчанию этот содержит только имена созданных секций и выглядит следующим образом:</p>
 
+      <div class="text_cent">
       <div class="code">
         <pre><code>
             <span class="tag-name">section-A</span>: <span class="tag-value">[]</span>
         </code></pre>
       </div>
+    </div>
 
       <p>Формат написаний правил следующий:</p>
 
-     <div class="code">
+      <div class="text_cent">
+      <div class="code">
         <pre><code>
           <span class="tag-name-active">tag-name</span>: [
               <span class="tag-name-active">derivative-tagA</span>: [ 
@@ -149,7 +158,8 @@
               ]
           ]
         </code></pre>
-      </div>     
+      </div>
+    </div>     
 
       <p>Внутри тега для обработки должен быть хотя бы один потомок. Если имя потомка совпадает с именем родителя, то значит происходит обработка самого тега родителя.</p>
       <p><code><span class="tag-value">tag-value</span></code> является переменной которая содержит в себе значение обрабатываемого тега. Передача <code><span class="tag-value">tag-value</span></code> происходит не явно. Вы просто должны писать обработку переменной <code><span class="tag-value">tag-value</span></code>. В целях тестирования вы можете заменить её требуемой стройкой с данными, но при вставке в правило снова вернуть имя <code><span class="tag-value">tag-value</span></code>.</p>
@@ -157,6 +167,7 @@
       <p>Каждый блок должен иметь <code>return</code> со значением. <code>return</code> может быть неявным если сама функция возвращает модифицированное значение (к примеру <code>replace</code>). Так же последнее значение функции будет являться значением возврата.</p>
 
 
+      <div class="text_cent">
       <div class="code">
       <pre><code>
        section-A: [
@@ -211,7 +222,8 @@
                
     ] 
       </code></pre>
-      </div>         
+      </div>
+    </div>         
     
     <p>Данный пример лишь показывает общие принципы комплексной обработки типов и не является универсальным.</p>
     <p>Те же самые задачи могут быть решены иным кодом.</p>
@@ -219,6 +231,7 @@
     <blockquote>Мы оказываем помощь в написании правил сложной обработки в рамках <i>Premium Support</i> </blockquote>
 
 
+    <div class="text_cent">
     <div class="code">
       <pre><code>
           <span class="tag-name">name</span>: <span class="tag-value">"John Doe"</span>
@@ -233,7 +246,8 @@
           <span class="tag-name">is_sitizen</span>: <span class="tag-value">"Yes"</span>
           <span class="tag-name">is_marital</span>: <span class="tag-value">"false"</span>
       </code></pre>
-      </div>    
+      </div>
+    </div>    
 
     <p>
       Обратите внимание, что приведение типа проиошло только для <code>salary_in_usd</code> т.к. это явно указано в действии над тегом <code>to-integer <span class="tag-value">tag-value</span></code>
@@ -249,6 +263,7 @@
 
   <p>Теперь после нажатия на кнопку <span class="ui-item">Parse</span> будет получено промежуточное представление с корректно приведенными типами:</p>
 
+  <div class="text_cent">
   <div class="code">
     <pre><code>
         <span class="tag-name">name</span>: <span class="tag-value">"John Doe"</span>
@@ -263,11 +278,13 @@
         <span class="tag-name">is_sitizen</span>: <span class="tag-value">true</span>
         <span class="tag-name">is_marital</span>: <span class="tag-value">false</span>
     </code></pre>
-    </div>    
+    </div>
+  </div>    
 
     <p>Теперь при необходимости строку <code><span class="tag-name">contact_info</span>: <span class="tag-value">"phone: +31 619653239 email: mail@example.org"</span></code> можно удалить.</p>
 
     <p>JSON представление:</p>
+    <div class="text_cent">
     <div class="code">
       <pre><code>
       {
@@ -283,16 +300,19 @@
          "is_marital": <span class="tag-value">false</span>
       }
       </code></pre>
-      </div>   
+      </div>
+    </div>   
 
     <p>SQL представление:</p>
 
+    <div class="text_cent">
     <div class="code">
       <pre><code>
       INSERT INTO <span class="table-name">sample</span> ("name", "age", "height", "contact_phone", "contact_email", "salary", "salary_currency", "salary_in_usd", "is_sitizen", "is_marital")
            VALUES (<span class="tag-value">'John Doe'</span>, <span class="tag-value">32</span>, <span class="tag-value">185</span>, <span class="tag-value">'+31 619653239'</span>, <span class="tag-value">'mail@example.org'</span>, <span class="tag-value">245000</span>, <span class="tag-value">'EUR'</span>, <span class="tag-value">268673.0</span>, <span class="tag-value">true</span>, <span class="tag-value">false</span>);
       </code></pre>
-      </div>     
+      </div> 
+    </div>    
 
     </section>  
       
