@@ -1122,6 +1122,12 @@ h1{
         .by_license_btn a i{
             background-color: #FF6A2E;
         }
+    .background_code{
+        background-color: #434343;
+    }
+    .background_h5{
+        background-color: #F8F8FA;
+    }
         /*DOCS */
         .doc-toc ul, .faq details{
             font-size: 1rem;
